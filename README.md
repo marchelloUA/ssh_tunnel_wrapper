@@ -9,7 +9,7 @@ sudo apt-get install libpython3.12-dev
 
 pip install pyinstaller
 
-pyinstaller --onefile ssh_tunnel_wrapper.py
+pyinstaller --enable-shared --onefile ssh_tunnel_wrapper.py
 
 settings.ini format:
 
