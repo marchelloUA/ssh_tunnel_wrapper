@@ -1,4 +1,4 @@
-from app import is_positive_integer
+from ssh_tunnel_wrapper import is_positive_integer
 
 def test_is_positive_integer():
     assert is_positive_integer('10') == True
