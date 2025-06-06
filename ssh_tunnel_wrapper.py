@@ -23,36 +23,6 @@ def settings_check_alert(InformativeText):
     print(f"ssh tunnel wrapper | application version: {formatted_date}")
     exit(1)
 
-def is_positive_integer(value):
-    try:
-        int_value = int(value)
-        if int_value > 0:
-            return True
-        else:
-            return False
-    except ValueError:
-        return False
-
-def is_valid_ip(ssh_host):
-    try:
-        ipaddress.ip_address(ssh_host)
-        return True
-    except ValueError:
-        return False
-
-def is_valid_private_key(path):
-    try:
-        key = paramiko.RSAKey(filename=path)
-        return True
-    except paramiko.SSHException:
-        return False
-
-def is_valid_unix_username(username):
-    if re.match(r'^[a-z][a-z0-9_-]{0,31}$', username):
-        return True
-    else:
-        return False
-
 def format_date_now():
     suffix = None
     now = datetime.now()
@@ -91,54 +61,12 @@ config = configparser.ConfigParser()
 config.read('settings.ini')
 
 ssh_host = config.get('DEFAULT', 'ssh_host')
-ssh_user = config.get('DEFAULT', 'ssh_user')
 local_port = config.get('DEFAULT', 'local_port')
 remote_host = config.get('DEFAULT', 'remote_host')
 remote_port = config.get('DEFAULT', 'remote_port')
-ssh_private_key_path = config.get('DEFAULT', 'ssh_private_key_path')
-
-if ssh_host == 'ssh_host':
-    settings_check_alert(InformativeText = "The 'ssh_host' in file 'settings.ini' is not set!")
-if ssh_user == 'ssh_user':
-    settings_check_alert(InformativeText = "The 'ssh_user' in file 'settings.ini' is not set!")
-if local_port == 'local_port':
-    settings_check_alert(InformativeText = "The 'local_port' in file 'settings.ini' is not set!")
-if remote_host == 'remote_host':
-    settings_check_alert(InformativeText = "The 'remote_host' in file 'settings.ini' is not set!")
-if remote_port == 'remote_port':
-    settings_check_alert(InformativeText = "The 'remote_port' in file 'settings.ini' is not set!")
-if ssh_private_key_path == 'ssh_private_key_path':
-    settings_check_alert(InformativeText = "The 'ssh_private_key_path' in file 'settings.ini' is not set!")
-
-if is_positive_integer(local_port):
-    local_port = int(local_port)
-else:
-    settings_check_alert(InformativeText = "The 'local_port' in file 'settings.ini' must be positive integer!")
-
-if is_positive_integer(remote_port):
-    remote_port = int(remote_port)
-else:
-    settings_check_alert(InformativeText = "The 'remote_port' in file 'settings.ini' must be positive integer!")
-
-if not is_valid_ip(ssh_host):
-    settings_check_alert(InformativeText = "The 'ssh_host' in file 'settings.ini' must be valid IP address!")
-
-if not is_valid_ip(remote_host):
-    settings_check_alert(InformativeText = "The 'remote_host' in file 'settings.ini' must be valid IP address!")
-
-if not os.path.isfile(ssh_private_key_path):
-    settings_check_alert(InformativeText = f"The file {ssh_private_key_path} does not exist!")
-
-if not is_valid_private_key(ssh_private_key_path):
-    settings_check_alert(InformativeText = f"The file {ssh_private_key_path} should be valid private ssh key!")
-
-if not is_valid_unix_username(ssh_user):
-    settings_check_alert(InformativeText = f"The 'ssh_user' should be valid unix username!")
 
 with SSHTunnelForwarder(
-    (ssh_host, 22),
-    ssh_username=ssh_user,
-    ssh_private_key=ssh_private_key_path,
+    ssh_host,
     remote_bind_address=(remote_host, remote_port),
     local_bind_address=('127.0.0.1', local_port)
 ) as tunnel:
