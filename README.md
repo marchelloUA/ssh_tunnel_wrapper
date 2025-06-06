@@ -4,7 +4,9 @@ wrapper for opening web app using ssh tunnel
 
 Wrapper is a tool that users can run on their PC or laptop. It creates an SSH tunnel and opens the web app behind ssh in its window automatically.
 
-## Linux
+## Pyinstaller
+
+### Linux
 
 To compile for Linux (Ubuntu), run:
 
@@ -14,11 +16,20 @@ pip install pyinstaller
 pyinstaller --enable-shared --onefile ssh_tunnel_wrapper.py
 ```
 
-## Windows
+### Windows
 
 ```powershell
 pyinstaller --hidden-import=babel --hidden-import=babel.numbers ssh_tunnel_wrapper.py
 
+```
+
+## Python venv module
+
+```shell
+cd ssh_tunnel_wrapper/
+python3 -m venv .venv/
+.venv/bin/activate
+pip3 install -r requirements.txt
 ```
 
 ## Configuration
