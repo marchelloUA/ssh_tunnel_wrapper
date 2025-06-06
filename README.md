@@ -34,15 +34,14 @@ pip3 install -r requirements.txt
 
 ## Configuration
 
-```settings.ini``` format:
+Configuration is based on your ```~/.ssh/config``` file.
 
 ```dosini
 [DEFAULT]
 
-ssh_host = ssh_host
-ssh_user = ssh_user
-local_port = local_port
-remote_host = remote_host # internal IP address behind ssh
-remote_port = remote_port # port of web app
-ssh_private_key_path = /home/user1/.ssh/id_rsa
+ssh_host = ssh_host             # as defined in ssh_config
+local_port = local_port         # Port listened on 127.0.0.1
+remote_host = remote_host       # internal IP address or hostname
+remote_port = remote_port       # port of web app
+
 ```
