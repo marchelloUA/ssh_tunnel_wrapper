@@ -36,6 +36,8 @@ pip3 install -r requirements.txt
 
 Configuration is based on your ```~/.ssh/config``` file.
 
+Create file `settings.ini`
+
 ```dosini
 [DEFAULT]
 
