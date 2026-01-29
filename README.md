@@ -33,3 +33,9 @@ remote_host = remote_host # internal IP address behind ssh
 remote_port = remote_port # port of web app
 
 ssh_private_key_path = /home/user1/.ssh/id_rsa
+
+Requirements:
+
+- Python dependencies: pip install PyQt5 PyQtWebEngine sshtunnel paramiko babel
+- SSH private key must be in RSA format.
+- settings.ini must be located in the same directory as the script or executable.
